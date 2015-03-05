@@ -29,5 +29,8 @@ This allows the use of a certain amount of configuration:
 - `PMB_CONFIGURE_R10k` : Whether to install/configure R10k (defaults=1)
 - `PMB_TEST` : Only tell you what it would do, but nothing actually happens
 - `PMB_INSTALL_POSTRECEIVE` : Install the post-receive git hook (default=1)
-```
 
+
+# Contributing
+
+Feel free to fork and send me a PR. Priority would be to add Debian/Ubuntu support if I do not get round to it first.
