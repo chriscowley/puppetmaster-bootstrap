@@ -1,5 +1,38 @@
 #!/bin/sh
 
+if [ -f /etc/centos-release ]
+then
+  distro="el"
+  ver=`awk '{ print $3 }' /etc/centos-release | cut -c1`
+else
+  echo "do not support this version yet"
+  exit 1
+fi
+
+if [ -f ./bootstrap.conf ]
+then
+    echo "conf file exists"
+    source ./bootstrap.conf
+    if [ -z ${PMB_TEST+x} ]; then
+        PMB_TEST=0
+    fi
+    if [ -z ${PMB_REPO_PREFIX+x} ]; then
+        PMB_REPO_PREFIX="http://yum.puppetlabs.com"
+    fi
+    if [ -z ${PMB_CONFIGURE_GIT+x}]; then
+        PMB_CONFIGURE_GIT=1
+    fi
+    if [ -z ${PMB_CONFIGURE_R10k+x}]; then
+        PMB_CONFIGURE_R10k=1
+    fi
+else
+    echo "no conf file"
+    PMB_TEST=0
+    PMB_REPO_PREFIX="http://yum.puppetlabs.com"
+    PMB_CONFIGURE_GIT=1
+    PMB_CONFIGURE_R10k=1
+    PMB_INSTALL_POSTRECEIVE=1
+fi
 arch=`uname -i`
 puppetrepo_prefix=$PMB_REPO_PREFIX
 product_url="${puppetrepo_prefix}/${distro}/${ver}/products/${arch}/"
@@ -173,39 +206,7 @@ function install_r10k {
     fi
 }
 
-if [ -f /etc/centos-release ]
-then
-  distro="el"
-  ver=`awk '{ print $3 }' /etc/centos-release | cut -c1`
-else
-  echo "do not support this version yet"
-  exit 1
-fi
 
-if [ -f ./bootstrap.conf ]
-then
-    echo "conf file exists"
-    source ./bootstrap.conf
-    if [ -z ${PMB_TEST+x} ]; then
-        PMB_TEST=0
-    fi
-    if [ -z ${PMB_REPO_PREFIX+x} ]; then
-        PMB_REPO_PREFIX="http://yum.puppetlabs.com"
-    fi
-    if [ -z ${PMB_CONFIGURE_GIT+x}]; then
-        PMB_CONFIGURE_GIT=1
-    fi
-    if [ -z ${PMB_CONFIGURE_R10k+x}]; then
-        PMB_CONFIGURE_R10k=1
-    fi
-else
-    echo "no conf file"
-    PMB_TEST=0
-    PMB_REPO_PREFIX="http://yum.puppetlabs.com"
-    PMB_CONFIGURE_GIT=1
-    PMB_CONFIGURE_R10k=1
-    PMB_INSTALL_POSTRECEIVE=1
-fi
 
 configure_yum
 
