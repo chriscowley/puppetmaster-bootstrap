@@ -1,7 +1,7 @@
 #!/bin/sh
 
 arch=`uname -i`
-puppetrepo_prefix="http://yum.puppetlabs.com"
+puppetrepo_prefix=$PMB_REPO_PREFIX
 product_url="${puppetrepo_prefix}/${distro}/${ver}/products/${arch}/"
 deps_url="${puppetrepo_prefix}/${distro}/${ver}/dependencies/${arch}/"
 gpgkey="${puppetrepo_prefix}/RPM-GPG-KEY-puppetlabs"
@@ -116,6 +116,7 @@ function configure_pm {
             echo "Symlink for hiera.yaml already exists"
         fi
         echo "create /etc/puppet/environments"
+        echo "Start and enable puppetserver"
     else
         echo "${puppetconf}" > /etc/puppet/puppet.conf
         echo "${hierayaml}" > /etc/puppet/hiera.yaml
@@ -125,6 +126,7 @@ function configure_pm {
         mkdir -pv /etc/puppet/environments
         chgrp -v puppet /etc/puppet/environments
         chmod -v 2775 /etc/puppet/environments
+        puppet resource service puppetserver ensure=running enable=true
     fi
 }
 
@@ -186,6 +188,10 @@ then
     source ./bootstrap.conf
 else
     echo "no conf file"
+    PMB_REPO_PREFIX="http://yum.puppetlabs.com"
+    PMB_CONFIGURE_GIT=1
+    PMB_CONFIGURE_R10k=1
+    PMB_INSTALL_POSTRECEIVE=1
 fi
 
 configure_yum
@@ -208,3 +214,4 @@ fi
 if [ ${PMB_CONFIGURE_R10k} -eq 1 ]; then
     install_r10k
 fi
+
