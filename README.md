@@ -25,6 +25,3 @@ This allows the use of a certain amount of configuration:
 - `PMB_TEST` : Forces will only tell you what it would do, but nothing actually happens
 - `PMB_INSTALL_POSTRECEIVE` : Install the post-receive git hook (default=1)
 ```
-
-`PMB_REPO_PREFIX` allows you to use a difference mirror than Puppetlabs own Yum server
-
