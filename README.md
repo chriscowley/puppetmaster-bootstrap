@@ -18,7 +18,7 @@ Currently tested on CentOS 6 only. I have every intention of adding CentOS 7 sup
 The simplest is to run:
 
 ```
-curl https://raw.githubusercontent.com/chriscowley/puppetmaster-bootstrap/master/bootstrap.sh | sudo sh
+curl https://raw.githubusercontent.com/chriscowley/puppetmaster-bootstrap/master/bootstrap.sh | sudo -E sh
 ```
 
 You can also run `sudo ./bootstrap.sh`.
