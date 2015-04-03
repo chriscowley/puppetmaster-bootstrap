@@ -121,7 +121,7 @@ then
     ${repofile}
 EOF
 else
-    cat > /etc/yum.repos.d/puppet.repo << EOF
+    cat > /etc/yum.repos.d/puppetlabs.repo << EOF
     ${repofile}
 EOF
 fi
