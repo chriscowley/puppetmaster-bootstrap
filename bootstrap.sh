@@ -154,7 +154,7 @@ function configure_pm {
         echo "${puppetconf}" > /etc/puppet/puppet.conf
         echo "${hierayaml}" > /etc/puppet/hiera.yaml
         if [ ! -L /etc/hiera.yaml ]; then
-            ln -sv /etc/puppet/hiera.yaml /etc/hiera.yaml
+            ln -svf /etc/puppet/hiera.yaml /etc/hiera.yaml
         fi
         mkdir -pv /etc/puppet/environments
         chgrp -v puppet /etc/puppet/environments
