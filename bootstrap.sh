@@ -58,16 +58,16 @@ puppetconf="""
 [main]
     logdir = /var/log/puppet
     rundir = /var/run/puppet
-    ssldir = $vardir/ssl
+    ssldir = \$vardir/ssl
 
 [agent]
-    classfile = $vardir/classes.txt
+    classfile = \$vardir/classes.txt
     server    = ${HOSTNAME}
-    localconfig = $vardir/localconfig
+    localconfig = \$vardir/localconfig
 
 [master]
     pluginsync = true
-    environmentpath = $confdir/environments
+    environmentpath = \$confdir/environments
 """
 
 hierayaml='''
