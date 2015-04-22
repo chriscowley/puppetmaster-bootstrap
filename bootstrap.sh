@@ -203,6 +203,8 @@ function install_r10k {
         fi
         gem install r10k
         echo "${r10kyaml}" > /etc/r10k.yaml
+        chgrp -Rv puppet /var/cache/r10k
+        chmod -Rv g+w /var/cache/r10k
     fi
 }
 
